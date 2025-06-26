@@ -2,15 +2,22 @@
 
 #include "WiFiBase.h"
 
-WiFiBase wifiBase;
-
+// passed constants
 static const char *ssid = MY_SSID;
 static const char *passwd = MY_PASSWD;
+static const uint32_t baud = MY_BAUD;
 
-static uint16_t delay_loop = 5000;
+// major classes
+WiFiBase wifiBase;
+
+// global constants
+static const uint16_t delayMedium = 250;
+static const uint16_t delayLong = 1000;
+static const uint32_t interval = 30000;
 
 void setup() {
-  Serial.begin(MY_BAUD);
+  Serial.begin(baud);
+  delay(delayLong*5);
   Serial.println("Starting");
   if (!wifiBase.init(ssid, passwd)) {
     Serial.println("Failed to Connect");
@@ -25,5 +32,5 @@ void loop() {
   Serial.println(wifiBase.connected());
   Serial.print("Connected IP: ");
   Serial.println(WiFi.localIP());
-  delay(delay_loop);
+  delay(interval);
 }
